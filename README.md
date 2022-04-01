@@ -7,8 +7,8 @@
     <a href="https://github.com/hughcube-php/laravel-tencent-map-apis/actions?query=workflow%3ALint">
         <img src="https://github.com/hughcube-php/laravel-tencent-map-apis/workflows/Lint/badge.svg" alt="Lint Actions status">
     </a>
-    <a href="https://styleci.io/repos/217659566">
-        <img src="https://github.styleci.io/repos/217659566/shield?branch=master" alt="StyleCI">
+    <a href="https://styleci.io/repos/476679477">
+        <img src="https://github.styleci.io/repos/476679477/shield?branch=master" alt="StyleCI">
     </a>
 </p>
 
