@@ -23,7 +23,7 @@ class ServiceProvider extends IlluminateServiceProvider
         $source = realpath(dirname(__DIR__).'/config/config.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path(sprintf("%s.php", TencentMapApi::getFacadeAccessor()))]);
+            $this->publishes([$source => config_path(sprintf('%s.php', TencentMapApi::getFacadeAccessor()))]);
         } elseif ($this->app instanceof LumenApplication) {
             $this->app->configure(TencentMapApi::getFacadeAccessor());
         }

@@ -17,7 +17,7 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 class TestCase extends OrchestraTestCase
 {
     /**
-     * @param  Application  $app
+     * @param Application $app
      *
      * @return array
      */
@@ -29,13 +29,14 @@ class TestCase extends OrchestraTestCase
     }
 
     /**
-     * @param  Application  $app
+     * @param Application $app
      */
     protected function getEnvironmentSetUp($app)
     {
         /** @var Repository $appConfig */
         $appConfig = $app['config'];
-        $appConfig->set(TencentMapApi::getFacadeAccessor(),
+        $appConfig->set(
+            TencentMapApi::getFacadeAccessor(),
             (require dirname(__DIR__).'/config/config.php')
         );
     }
