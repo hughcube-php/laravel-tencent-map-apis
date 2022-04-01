@@ -6,8 +6,9 @@
  * Time: 10:32 下午.
  */
 
-namespace HughCube\Laravel\Package;
+namespace HughCube\Laravel\Tencent\Map\Api;
 
+use Illuminate\Contracts\Container\Container as ContainerContract;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -22,9 +23,9 @@ class ServiceProvider extends IlluminateServiceProvider
         $source = realpath(dirname(__DIR__).'/config/config.php');
 
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-            $this->publishes([$source => config_path(sprintf("%s.php", Package::getFacadeAccessor()))]);
+            $this->publishes([$source => config_path(sprintf("%s.php", TencentMapApi::getFacadeAccessor()))]);
         } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure(Package::getFacadeAccessor());
+            $this->app->configure(TencentMapApi::getFacadeAccessor());
         }
     }
 
@@ -33,8 +34,11 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Package::getFacadeAccessor(), function ($app) {
-            return new Manager();
+        $this->app->singleton(TencentMapApi::getFacadeAccessor(), function ($app) {
+            /** @var ContainerContract $app */
+            $config = $app['config']->get(TencentMapApi::getFacadeAccessor(), []);
+
+            return new Client($config);
         });
     }
 }

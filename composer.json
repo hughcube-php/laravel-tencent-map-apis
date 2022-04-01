@@ -1,5 +1,5 @@
 {
-    "name": "hughcube/laravel-package",
+    "name": "hughcube/laravel-tencent-map-apis",
     "description": "",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,9 @@
     ],
     "require": {
         "php": "7.*|8.*",
-        "illuminate/support": ">=8.0"
+        "illuminate/support": "*",
+        "hughcube/guzzle-http": "*",
+        "hughcube/purl": "*"
     },
     "require-dev": {
         "laravel/framework": "*",
@@ -21,18 +23,18 @@
     },
     "autoload": {
         "psr-4": {
-            "HughCube\\Laravel\\Package\\": "src"
+            "HughCube\\Laravel\\Tencent\\Map\\Api\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "HughCube\\Laravel\\Package\\Tests\\": "tests"
+            "HughCube\\Laravel\\Tencent\\Map\\Api\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "HughCube\\Laravel\\Package\\ServiceProvider"
+                "HughCube\\Laravel\\Tencent\\Map\\Api\\ServiceProvider"
             ]
         }
     },

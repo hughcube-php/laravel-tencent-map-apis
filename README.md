@@ -1,11 +1,11 @@
-<h1 align="center"> laravel captcha code </h1>
+<h1 align="center"> laravel-tencent-map-apis </h1>
 
 <p>
-    <a href="https://github.com/hughcube-php/laravel-captcha-code/actions?query=workflow%3ATest">
-        <img src="https://github.com/hughcube-php/laravel-captcha-code/workflows/Test/badge.svg" alt="Test Actions status">
+    <a href="https://github.com/hughcube-php/laravel-tencent-map-apis/actions?query=workflow%3ATest">
+        <img src="https://github.com/hughcube-php/laravel-tencent-map-apis/workflows/Test/badge.svg" alt="Test Actions status">
     </a>
-    <a href="https://github.com/hughcube-php/laravel-captcha-code/actions?query=workflow%3ALint">
-        <img src="https://github.com/hughcube-php/laravel-captcha-code/workflows/Lint/badge.svg" alt="Lint Actions status">
+    <a href="https://github.com/hughcube-php/laravel-tencent-map-apis/actions?query=workflow%3ALint">
+        <img src="https://github.com/hughcube-php/laravel-tencent-map-apis/workflows/Lint/badge.svg" alt="Lint Actions status">
     </a>
     <a href="https://styleci.io/repos/217659566">
         <img src="https://github.styleci.io/repos/217659566/shield?branch=master" alt="StyleCI">
@@ -15,13 +15,13 @@
 ## Installing
 
 ```shell
-$ composer require hughcube/laravel-captcha-code -vvv
+$ composer require hughcube/laravel-tencent-map-apis -vvv
 ```
 
 ## Configuration
 
 ```shell
-$ php artisan vendor:publish --provider="HughCube\Laravel\CaptchaCode\ServiceProvider"
+$ php artisan vendor:publish --provider="HughCube\Laravel\Tencent\Map\Api\ServiceProvider"
 ```
 
 ## Usage

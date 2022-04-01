@@ -1,14 +1,7 @@
 <?php
 
 return [
-    'default' => 'default',
-
-    /**
-     * default config
-     */
-    'defaults' => [],
-
-    'drivers' => [
-        'default' => [],
+    'keys' => [
+        env('TENCENT_MAP_API_KEY')
     ],
 ];
