@@ -2,6 +2,6 @@
 
 return [
     'keys' => [
-        env('TENCENT_MAP_API_KEY')
+        env('TENCENT_MAP_API_KEY'),
     ],
 ];

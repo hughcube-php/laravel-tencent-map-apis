@@ -39,7 +39,7 @@ class Client
     protected function createHttpClient(): HttpClient
     {
         $config = array_merge(
-            ['base_uri' => 'https://apis.map.qq.com',],
+            ['base_uri' => 'https://apis.map.qq.com'],
             ($this->config['keys'] ?? [])
         );
 
@@ -53,7 +53,6 @@ class Client
     {
         return function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
-
                 $key = Arr::random($this->getKeys(), 1, false)[0];
                 $options[RequestOptions::QUERY]['key'] = $key;
 
@@ -70,13 +69,15 @@ class Client
     /**
      * @see https://lbs.qq.com/service/webService/webServiceGuide/webServiceSuggestion
      *
-     * @param  array  $query
-     * @param  array  $options
+     * @param array $query
+     * @param array $options
+     *
      * @return ResponseInterface
      */
     public function suggestion(array $query, array $options = []): ResponseInterface
     {
         $options[RequestOptions::QUERY] = $query;
+
         return $this->request('GET', '/ws/place/v1/suggestion', $options);
     }
 }
