@@ -8,7 +8,6 @@
 
 namespace HughCube\Laravel\Tencent\Map\Api\Actions;
 
-use HughCube\Laravel\Tencent\Map\Api\Exceptions\BusinessException;
 use HughCube\Laravel\Tencent\Map\Api\TencentMapApi;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,11 +26,11 @@ class SuggestionAction
 
         $results = $response->toArray();
         if (!isset($results['status'])) {
-            throw new BusinessException($response, 0, '系统繁忙, 请稍后再试!');
+            return new JsonResponse(['code' => 500, 'message' => '系统繁忙, 请稍后再试!']);
         }
 
         if (0 != $results['status']) {
-            throw new BusinessException($response, $results['status'], $results['message']);
+            return new JsonResponse(['code' => $results['status'], 'message' => $results['message']]);
         }
 
         $list = [];
