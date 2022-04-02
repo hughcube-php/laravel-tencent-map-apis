@@ -8,14 +8,14 @@
 
 namespace HughCube\Laravel\Tencent\Map\Api;
 
+use HughCube\GuzzleHttp\LazyResponse;
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Package.
  *
- * @method static ResponseInterface request(string $method, $uri, array $options = [])
- * @method static ResponseInterface suggestion(array $query, array $options = [])
+ * @method static LazyResponse request(string $method, $uri, array $options = [])
+ * @method static LazyResponse suggestion(array $query, array $options = [])
  *
  * @see \HughCube\Laravel\Tencent\Map\Api\Client
  * @see \HughCube\Laravel\Tencent\Map\Api\ServiceProvider

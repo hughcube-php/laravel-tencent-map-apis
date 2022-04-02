@@ -9,14 +9,15 @@
 namespace HughCube\Laravel\Tencent\Map\Api;
 
 use Closure;
+use Exception;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions;
 use HughCube\GuzzleHttp\Client as HttpClient;
 use HughCube\GuzzleHttp\HttpClientTrait;
+use HughCube\GuzzleHttp\LazyResponse;
 use HughCube\PUrl\HUrl;
-use Illuminate\Support\Arr;
+use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
@@ -37,6 +38,18 @@ class Client
         return $this->config['keys'] ?? [];
     }
 
+    /**
+     * @throws Exception
+     */
+    protected function randomKey()
+    {
+        $keys = $this->getKeys();
+        if (empty($keys)) {
+            return null;
+        }
+        return array_values($keys)[random_int(0, (count($keys) - 1))];
+    }
+
     protected function createHttpClient(): HttpClient
     {
         $config = array_merge(
@@ -55,37 +68,28 @@ class Client
         return function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
 
-                $auth = Arr::random($this->getKeys(), 1, false)[0];
-                $key = $auth['key'] ?? null;
-                $sk = $auth['sk'] ?? null;
+                $key = $this->randomKey();
+                if (!isset($key['key'])) {
+                    throw new InvalidArgumentException('The correct keys must be set!');
+                }
 
-                $uri = HUrl::instance($request->getUri())->withQueryValue('key', $key);
+                $uri = HUrl::instance($request->getUri())->withQueryValue('key', $key['key']);
 
                 /** 无需签名(白名单模式) */
-                if (empty($sk)) {
+                if (empty($key['sk'])) {
                     return $handler($request->withUri($uri), $options);
                 }
 
-                /** 签名排序 */
-                $queryArray = $uri->getQueryArray();
-                ksort($queryArray, SORT_STRING);
-
-                /** 签名query */
-                $query = [];
-                foreach ($queryArray as $name => $value) {
-                    $query[] = "$name=$value";
-                }
-                $query = implode('&', $query);
-
                 /** 组合签名 */
-                $sign = $uri->getPath().($query ? sprintf('?%s', $query) : '').$sk;
+                $rawQuery = $uri->withSortQuery(SORT_ASC, SORT_STRING)->getRawQuery();
+                $sign = $uri->getPath().($rawQuery ? "?$rawQuery" : "").$key['sk'];
 
                 return $handler($request->withUri($uri->withQueryValue('sig', md5($sign))), $options);
             };
         };
     }
 
-    public function request(string $method, $uri, array $options = []): ResponseInterface
+    public function request(string $method, $uri, array $options = []): LazyResponse
     {
         return $this->getHttpClient()->requestLazy(strtoupper($method), $uri, $options);
     }
@@ -96,9 +100,9 @@ class Client
      * @param  array  $query
      * @param  array  $options
      *
-     * @return ResponseInterface
+     * @return LazyResponse
      */
-    public function suggestion(array $query, array $options = []): ResponseInterface
+    public function suggestion(array $query, array $options = []): LazyResponse
     {
         $options[RequestOptions::QUERY] = $query;
 
