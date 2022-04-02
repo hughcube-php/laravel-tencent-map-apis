@@ -17,9 +17,9 @@ use Throwable;
 class SuggestionAction
 {
     /**
-     * @return JsonResponse
-     *
      * @throws Throwable
+     *
+     * @return JsonResponse
      */
     public function action(): JsonResponse
     {
@@ -37,21 +37,21 @@ class SuggestionAction
         $list = [];
         foreach (($results['data'] ?: []) as $item) {
             $list[] = [
-                'title' => $item['title'],
-                'address' => $item['address'],
-                'province' => $item['province'],
-                'city' => $item['city'],
-                'adcode' => $item['adcode'],
-                'type' => $item['type'],
-                'latitude' => $item['location']['lat'],
+                'title'     => $item['title'],
+                'address'   => $item['address'],
+                'province'  => $item['province'],
+                'city'      => $item['city'],
+                'adcode'    => $item['adcode'],
+                'type'      => $item['type'],
+                'latitude'  => $item['location']['lat'],
                 'longitude' => $item['location']['lng'],
             ];
         }
 
         return new JsonResponse([
-            'code' => 200,
+            'code'    => 200,
             'message' => 'ok',
-            'data' => array_values($list),
+            'data'    => array_values($list),
         ]);
     }
 
@@ -64,9 +64,9 @@ class SuggestionAction
     }
 
     /**
-     * @return JsonResponse
-     *
      * @throws Throwable
+     *
+     * @return JsonResponse
      */
     public function __invoke(): JsonResponse
     {

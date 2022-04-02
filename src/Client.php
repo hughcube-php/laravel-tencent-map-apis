@@ -47,6 +47,7 @@ class Client
         if (empty($keys)) {
             return null;
         }
+
         return array_values($keys)[random_int(0, (count($keys) - 1))];
     }
 
@@ -67,7 +68,6 @@ class Client
     {
         return function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
-
                 $key = $this->randomKey();
                 if (!isset($key['key'])) {
                     throw new InvalidArgumentException('The correct keys must be set!');
@@ -82,7 +82,7 @@ class Client
 
                 /** 组合签名 */
                 $rawQuery = $uri->withSortQuery(SORT_ASC, SORT_STRING)->getRawQuery();
-                $sign = $uri->getPath().($rawQuery ? "?$rawQuery" : "").$key['sk'];
+                $sign = $uri->getPath().($rawQuery ? "?$rawQuery" : '').$key['sk'];
 
                 return $handler($request->withUri($uri->withQueryValue('sig', md5($sign))), $options);
             };
@@ -97,8 +97,8 @@ class Client
     /**
      * @see https://lbs.qq.com/service/webService/webServiceGuide/webServiceSuggestion
      *
-     * @param  array  $query
-     * @param  array  $options
+     * @param array $query
+     * @param array $options
      *
      * @return LazyResponse
      */
