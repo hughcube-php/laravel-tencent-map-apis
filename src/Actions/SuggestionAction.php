@@ -27,7 +27,7 @@ class SuggestionAction
 
         $results = $response->toArray();
         if (!isset($results['status'])) {
-            throw new BusinessException($response);
+            throw new BusinessException($response, 0, '系统繁忙, 请稍后再试!');
         }
 
         if (0 != $results['status']) {
