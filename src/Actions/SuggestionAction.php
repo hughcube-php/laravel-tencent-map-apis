@@ -51,7 +51,7 @@ class SuggestionAction
         return new JsonResponse([
             'code'    => 200,
             'message' => 'ok',
-            'data'    => array_values($list),
+            'data'    => ['list' => array_values($list)],
         ]);
     }
 
