@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: hugh.li
  * Date: 2022/4/2
- * Time: 14:43
+ * Time: 14:43.
  */
 
 namespace HughCube\Laravel\Tencent\Map\Api\Exceptions;
@@ -16,7 +16,7 @@ class BusinessException extends Exception
 {
     protected $response;
 
-    public function __construct(ResponseInterface $response, $message = "", $code = 0, Throwable $previous = null)
+    public function __construct(ResponseInterface $response, $message = '', $code = 0, Throwable $previous = null)
     {
         $this->response = $response;
 
